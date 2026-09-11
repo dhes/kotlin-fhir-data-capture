@@ -136,9 +136,9 @@ internal class EnabledAnswerOptionsEvaluator(
       if (uri.startsWith("#")) {
         questionnaire.contained
           .firstOrNull { resource ->
-            // Contained ids are stored without the leading '#' in kotlin-fhir (unlike HAPI, which
-            // keeps it); normalize both sides so either notation matches.
-            resource.id?.removePrefix("#") == uri.removePrefix("#") &&
+            // uri is a fragment reference ("#IMMZ.C.DE5"); kotlin-fhir stores contained ids
+            // verbatim from JSON (no '#'), so strip the reference's '#' before comparing.
+            resource.id == uri.removePrefix("#") &&
               resource is ValueSet &&
               resource.expansion != null &&
               resource.expansion!!.contains.isNotEmpty()

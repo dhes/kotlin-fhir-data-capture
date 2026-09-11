@@ -102,14 +102,6 @@ class EnabledAnswerOptionsEvaluatorTest {
   }
 
   @Test
-  fun answerValueSet_containedIdWithHashPrefix_returnsExpandedOptions() = runTest {
-    // HAPI-style content where the contained id itself carries the '#'.
-    val options = evaluateOptions(questionnaireWithContainedValueSet(containedId = "#vs1"))
-
-    assertEquals(2, options.size)
-  }
-
-  @Test
   fun answerValueSet_unknownContainedReference_returnsNoOptions() = runTest {
     val options = evaluateOptions(questionnaireWithContainedValueSet(containedId = "other-vs"))
 
